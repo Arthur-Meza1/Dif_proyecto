@@ -129,10 +129,23 @@ Cada frame se divide en 10 sub-pasos para mantener la estabilidad numérica. La 
 Para una partícula $i$ conectada a sus vecinos $\mathcal{N}(i)$:
 
 $$
-m_i \ddot{\mathbf{x}}_i = m_i \mathbf{g}
-+ \sum_{j \in \mathcal{N}(i)} \left[ -k_{ij} \left( \|\mathbf{x}_j - \mathbf{x}_i\| - \ell_{ij} \right) \frac{\mathbf{x}_j - \mathbf{x}_i}{\|\mathbf{x}_j - \mathbf{x}_i\|} \right]
-- c_i \dot{\mathbf{x}}_i
-+ \mathbf{f}_{\text{viento}}(t)
+m_i \ddot{\mathbf{x}}_i
+=
+m_i \mathbf{g}
++
+\sum_{j \in \mathcal{N}(i)}
+\left[
+-k_{ij}
+\left(
+\|\mathbf{x}_j-\mathbf{x}_i\|-\ell_{ij}
+\right)
+\frac{\mathbf{x}_j-\mathbf{x}_i}
+{\|\mathbf{x}_j-\mathbf{x}_i\|}
+\right]
+-
+c_i \dot{\mathbf{x}}_i
++
+\mathbf{f}_{\text{viento}}(t)
 $$
 
 Donde $\ell_{ij}$ es la longitud de reposo del resorte que conecta las partículas $i$ y $j$, calculada a partir de sus posiciones iniciales en la malla. Los resortes de cortante (diagonales) usan la mitad de rigidez que los estructurales.
