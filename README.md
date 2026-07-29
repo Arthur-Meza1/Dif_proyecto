@@ -81,13 +81,13 @@ cmake --build build
 Cada partícula de masa $m$ sigue la EDO de segundo orden:
 
 $$
-m \frac{d^2\mathbf{x}}{dt^2} = m\mathbf{g} + \sum_{j \in \mathcal{N}(i)} \left[ -k \left( \|\Delta\mathbf{x}_{ij}\| - \ell_{ij} \right) \frac{\Delta\mathbf{x}_{ij}}{\|\Delta\mathbf{x}_{ij}\|} \right] - c \mathbf{v}_i + \mathbf{F}_{\text{viento}}
+m \frac{d^2\mathbf{x}}{dt^2} = m\mathbf{g} + \sum_{j \in \mathcal{N}(i)} \left[ -k \bigl( \lVert\Delta\mathbf{x}_{ij}\rVert - \ell_{ij} \bigr) \frac{\Delta\mathbf{x}_{ij}}{\lVert\Delta\mathbf{x}_{ij}\rVert} \right] - c \mathbf{v}_i + \mathbf{F}_{\text{viento}}
 $$
 
 | Término | Fuerza | Descripción |
 |---------|--------|-------------|
 | $m\mathbf{g}$ | Gravedad | Constante hacia abajo |
-| $-k(\|\Delta\mathbf{x}\| - \ell_0)\hat{\mathbf{u}}$ | Restitución elástica | Ley de Hooke entre partículas adyacentes |
+| $-k(\lVert\Delta\mathbf{x}\rVert - \ell_0)\hat{\mathbf{u}}$ | Restitución elástica | Ley de Hooke entre partículas adyacentes |
 | $-c\mathbf{v}$ | Amortiguamiento viscoso | Disipa energía, evita oscilaciones infinitas |
 | $\mathbf{F}_{\text{viento}}$ | Viento | Fuerza externa senoidal |
 
@@ -128,25 +128,7 @@ Cada frame se divide en 10 sub-pasos para mantener la estabilidad numérica. La 
 
 Para una partícula $i$ conectada a sus vecinos $\mathcal{N}(i)$:
 
-$$
-m_i \ddot{\mathbf{x}}_i
-=
-m_i \mathbf{g}
-+
-\sum_{j \in \mathcal{N}(i)}
-\left[
--k_{ij}
-\left(
-\|\mathbf{x}_j-\mathbf{x}_i\|-\ell_{ij}
-\right)
-\frac{\mathbf{x}_j-\mathbf{x}_i}
-{\|\mathbf{x}_j-\mathbf{x}_i\|}
-\right]
--
-c_i \dot{\mathbf{x}}_i
-+
-\mathbf{f}_{\text{viento}}(t)
-$$
+$$ m_i \ddot{\mathbf{x}}_i = m_i \mathbf{g} + \sum_{j \in \mathcal{N}(i)} \left[ -k_{ij} \bigl( \lVert \mathbf{x}_j - \mathbf{x}_i \rVert - \ell_{ij} \bigr) \frac{\mathbf{x}_j - \mathbf{x}_i}{\lVert \mathbf{x}_j - \mathbf{x}_i \rVert} \right] - c_i \dot{\mathbf{x}}_i + \mathbf{f}_{\text{viento}}(t) $$
 
 Donde $\ell_{ij}$ es la longitud de reposo del resorte que conecta las partículas $i$ y $j$, calculada a partir de sus posiciones iniciales en la malla. Los resortes de cortante (diagonales) usan la mitad de rigidez que los estructurales.
 
